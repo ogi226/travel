@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -32,70 +34,107 @@
   <div id="particles-js"></div>
   <div id="wrapper">
 
-    <header id="header" class="fadeDownTrigger">
-      <h1 class="smoothTrigger"><a href="#">travel planner</a></h1>
+    <header id="header" class="fadeDownTrigger fadeDown">
+      <h1 class="smoothTrigger smooth"><a href="#">travel planner</a></h1>
     </header>
+
+    <?php
+    // セッションを変数に定義
+    if (isset($_SESSION['customer'])) {
+      $id = $_SESSION['customer']['id'];
+      $name = $_SESSION['customer']['name'];
+      $nickname = $_SESSION['customer']['nickname'];
+      $mail = $_SESSION['customer']['mail'];
+      $password = $_SESSION['customer']['password'];
+    }
+    ?>
+
     <div id="menu">
-      <div><img src="image/icon/bookmark.svg" alt="">プラン一覧</div>
-      <div><a href="checklist.php"><img src="image/icon/checkbox.svg" alt="">チェックリスト</a></div>
-      <div><a href="checklist.php"><img src="image/icon/diary.svg" alt="">日記</a></div>
-      <div><a href="#"><img src="image/icon/mypage.svg" alt="">マイページ</a></div>
+      <a href="">
+        <img src="image/icon/bookmark.svg" alt="">
+        <span>プラン一覧</span>
+      </a>
+      <a href="checklist.php">
+        <img src="image/icon/checkbox.svg" alt="">
+        <span>チェックリスト</span>
+      </a>
+      <a href="checklist.php">
+        <img src="image/icon/diary.svg" alt="">
+        <span>日記</span>
+      </a>
+      <a href="customer-input.php">
+        <img src="image/icon/mypage.svg" alt="">
+        <span>マイページ</span>
+      </a>
     </div>
 
-    <div id="container">
-      <main>
-        <section id="topics">
-          <!-- <div class="heading-block smoothTrigger">
-            <h2 class="heading01">T<span class="en">ravelList</span><span class="jp">一覧</span></h2>
-          </div> -->
-          <div class="topics-area">
-            <article class="smoothTrigger"><a href="schedule.php">
-                <figure class="zoomOut"><span class="mask"><img src="image/korea_m.jpg" alt=""></span></figure>
-                <div class="topics-block">
-                  <h3 class="trip_title">韓国旅行</h3>
-                  <p class="schedule_date">2024年6月23日(日)～2024年6月25日(火)</p>
-                </div>
-              </a></article>
+    <?php
+    if (isset($_SESSION['customer'])) {
+      // ログインしてる
+      echo '<p class="user_name">ようこそ&emsp;', $_SESSION['customer']['nickname'], '様</p>';
+    } else {
+      // ログインしてない
+      echo '<p class="user_name">ようこそ&emsp;ゲスト様</p>';
+    }
+    ?>
 
-            <article class="smoothTrigger"><a href="#">
-                <figure class="zoomOut"><span class="mask"><img src="image/hawaii_m.jpg" alt=""></span></figure>
-                <div class="topics-block">
-                  <h3 class="trip_title">ハワイ旅行</h3>
-                  <p class="schedule_date">2024年10月10日(木)～2024年10月15日(火)</p>
-                </div>
-              </a></article>
+    <?php
+    if (isset($_SESSION['customer'])) {
+      echo '<div id="container">';
+      echo '<main>';
+      echo '<section id="topics">';
+      echo '<!-- <div class="heading-block smoothTrigger">';
+      echo '<h2 class="heading01">T<span class="en">ravelList</span><span class="jp">一覧</span></h2>';
+      echo $name, '様';
+      echo '</div> -->';
+      echo '<div class="topics-area">';
+      echo '<article class="smoothTrigger"><a href="schedule.php">';
+      echo '<figure class="zoomOut"><span class="mask"><img src="image/korea_m.jpg" alt=""></span></figure>';
+      echo '<div class="topics-block">';
+      echo '<h3 class="trip_title">韓国旅行</h3>';
+      echo '<p class="schedule_date">2024年6月23日(日)～2024年6月25日(火)</p>';
+      echo '</div>';
+      echo '</a></article>';
 
-            <article class="smoothTrigger"><a href="#">
-                <figure class="zoomOut"><span class="mask"><img src="img/03.jpg" alt=""></span></figure>
-                <div class="topics-block">
-                  <h3 class="trip_title">バリ旅行</h3>
-                  <p class="schedule_date">2024年11月18日(月)～2024年11月22日(金)</p>
-                </div>
-              </a></article>
+      echo ' <article class="smoothTrigger"><a href="#">';
+      echo ' <figure class="zoomOut"><span class="mask"><img src="image/bali_m.jpg" alt=""></span></figure>';
+      echo ' <div class="topics-block">';
+      echo '   <h3 class="trip_title">バリ旅行</h3>';
+      echo '   <p class="schedule_date">2024年11月18日(月)～2024年11月22日(金)</p>';
+      echo ' </div>';
+      echo '</a></article>';
 
-            <!--/topics-area-->
-          </div>
-          <div class="topics-btn smoothTrigger"><a href="#" class="btnlinestretches4"><span>一覧</span></a></div>
-        </section>
+      // <!--/topics-area-->
+      echo '<div class="topics-btn smoothTrigger"><a href="#" class="btnlinestretches4"><span>一覧</span></a></div>';
+    } else {
+      echo 'ご利用はログインしてください';
+      echo '<a href="login-input.php">ログインはコチラ</a>';
+    }
 
-        <!-- 追加ボタン -->
-        <a href="create.php">
-          <div class="add_img">
-            <a href="index-create.php"><img src="image/icon/plus-circle.svg" alt=""></a>
-          </div>
-        </a>
 
-      </main>
+    echo '</div>';
 
-      <footer id="footer">
-        <div id="page-top"><a href="#header"></a></div>
-        <small>&copy; Good Trip</small>
-      </footer>
+    echo '</section>';
 
-      <canvas id="waveCanvas"></canvas>
-      <!--/container-->
-    </div>
-    <!--/wrapper-->
+    // 追加ボタン
+    echo '<a href="index-create.php">';
+    echo ' <div class="add_img">';
+    echo '<img src="image/icon/plus-circle.svg" alt="">';
+    echo ' </div>';
+    echo '</a>';
+
+    echo '</main>';
+    ?>
+
+    <footer id="footer">
+      <div id="page-top"><a href="#header"></a></div>
+      <small>&copy; Good Trip</small>
+    </footer>
+
+    <canvas id="waveCanvas"></canvas>
+    <!--/container-->
+  </div>
+  <!--/wrapper-->
   </div>
 
   <!--=============JS ===============-->

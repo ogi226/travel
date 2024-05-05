@@ -22,7 +22,7 @@
 
 <body>
   <div id="top">
-    <div class="back"><a href="main.php">＜ 戻る</a></div>
+    <div class="back"><a href="index.php">＜ 戻る</a></div>
   </div>
 
   <div class="wrapper">

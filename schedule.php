@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <html>
 <!DOCTYPE html>
 <html lang="ja">
@@ -131,11 +133,13 @@
     </div>
 
     <!-- 追加ボタン -->
-    <a href="schedule-input.php">
-      <div class="add_img">
-        <a href="schedule-input.php"><img src="image/icon/plus-circle.svg" alt=""></a>
-      </div>
-    </a>
+    <?php
+    echo '<a href="schedule-input.php">';
+    echo ' <div class="add_img">';
+    echo '<img src="image/icon/plus-circle.svg" alt="">';
+    echo ' </div>';
+    echo '</a>';
+    ?>
 
 
 
@@ -231,7 +235,6 @@
     color: gray;
   }
 
-
   /* 追加ボタン */
   .add_img {
     position: fixed;
@@ -243,6 +246,10 @@
     background: #DF4456;
     border-radius: 50%;
     text-align: center;
+  }
+
+  .add_img img {
+    width: 36px;
   }
 </style>
 

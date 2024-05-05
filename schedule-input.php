@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -56,21 +58,31 @@
     // true セットされている=ログイン中だったら
 
     echo '<div class="content">';
-    echo '<form action="treatment-confirm.php? method="post" enctype="multipart/form-data">';
+    echo '<form action="schedule-confirm.php? method="post" enctype="multipart/form-data">';
 
     echo '<div class="grid_content">';
-    echo '<h2>タイトル<span class="must">※</span></h2>';
+    echo '<h2>予定<span class="must">※</span></h2>';
     echo '<input type="text" id="inputField" name="title" value="{$title}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
     echo '</div>';
 
     echo '<div class="grid_content">';
-    echo '<h2>出発日<span class="must">※</span></h2>';
-    echo '<input class=mini-input type="date" id="inputField" name="departure_date" value="{$departure_date}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
+    echo '<h2>日付<span class="must">※</span></h2>';
+    echo '<input type="date" id="inputField" name="arrival_date" value="{$arrival_date}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
     echo '</div>';
 
     echo '<div class="grid_content">';
-    echo '<h2>帰宅日<span class="must">※</span></h2>';
-    echo '<input type="date" id="inputField" name="arrival_date" value="{$arrival_date}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
+    echo '<h2>開始時刻<span class="must">※</span></h2>';
+    echo '<input class=mini-input type="time" id="inputField" name="departure_date" value="{$departure_date}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
+    echo '</div>';
+
+    echo '<div class="grid_content">';
+    echo '<h2>終了時刻<span class="must">※</span></h2>';
+    echo '<input type="time" id="inputField" name="arrival_date" value="{$arrival_date}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
+    echo '</div>';
+
+    echo '<div class="grid_content">';
+    echo '<h2 class="item_name">アイコン</h2>';
+    echo '<input class="input_field" type="text" id="inputField" name="select" pattern="[^\s]+" title="空白以外の文字を入力してください">';
     echo '</div>';
 
     echo '<div class="grid_content">';

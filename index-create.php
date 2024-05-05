@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -44,11 +46,7 @@
     if (isset($_GET['id'])) {
       $treatment_id = $_GET['id'];
     }
-
-    // カテゴリーを取得
-    // $category = $pdo->query('SELECT * FROM category');
     ?>
-
 
     <?php
 
@@ -56,7 +54,7 @@
     // true セットされている=ログイン中だったら
 
     echo '<div class="content">';
-    echo '<form action="treatment-confirm.php? method="post" enctype="multipart/form-data">';
+    echo '<form action="index-confirm.php" method="post" enctype="multipart/form-data">';
 
     echo '<div class="grid_content">';
     echo '<h2>タイトル<span class="must">※</span></h2>';
@@ -80,8 +78,11 @@
 
     echo '<div class="grid_content">';
     echo '<h2 class="item_name">写真</h2>';
-    echo '<input type="file" id="photo" class="input_field" name="newphoto" accept="image/*" onchange="previewPhoto(event)">';
-    echo '<input type="hidden" name="photo" value="', $file, '">';
+    echo '<input class="input_field" type="file"  id="photo" name="photo">';
+    echo '</div>';
+
+    // echo '<input type="file" id="photo" class="input_field" name="newphoto" accept="image/*" onchange="previewPhoto(event)">';
+    // echo '<input type="hidden" name="photo" value="', $file, '">';
     echo '</div>';
 
     echo '<div class="textalign_center">';

@@ -32,18 +32,38 @@ body {
 
     background-color: #fff;
     font-size: 12px;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     place-items: center;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+#menu a {
+    display: grid;
+    place-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#menu a:hover {
+    background-color: rgba(223, 68, 86, 0.6);
+    width: 25vw;
+    padding: 10px 8px;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 #menu img {
     width: 24px;
 }
 
+#menu span {
+    font-size: 0.8rem;
+}
+
 .schedule_date {
-    font-size: 12px;
+    font-size: clamp(10px, 2.6666vw, 24px);
 }
 
 
@@ -90,6 +110,7 @@ img {
     align-items: center;
     text-transform: uppercase;
 }
+
 
 @media screen and (max-width:960px) {
     #header {
@@ -456,7 +477,7 @@ body.appear .fluid-lead h2 {
 
 
 .topics-area .topics-block {
-    padding: 10px 20px;
+    padding: 10px 16px;
 }
 
 .topics-area .topics-block time {
@@ -790,4 +811,16 @@ form .grid_content {
 
 .textalign_center {
     text-align: center;
+}
+
+.confirm_content {
+    display: grid;
+    grid-template-columns: 100px auto;
+
+}
+
+.item_name,
+.item_input {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
 }
