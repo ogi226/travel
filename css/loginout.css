@@ -18,6 +18,16 @@ body {
   word-wrap: break-word;
 }
 
+#top {
+  background-color: #DF4456;
+  padding: 20px 10px;
+  text-align: center;
+  color: #fff;
+}
+
+.back {
+  text-align: left;
+}
 
 .input_field {
   border: 1px solid #ccc;

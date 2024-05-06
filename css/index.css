@@ -477,7 +477,7 @@ body.appear .fluid-lead h2 {
 
 
 .topics-area .topics-block {
-    padding: 10px 16px;
+    padding: 10px 14px;
 }
 
 .topics-area .topics-block time {
@@ -732,6 +732,10 @@ body.appear .fluid-lead h2 {
 }
 
 /* footer */
+footer {
+    background-color: #DF4456;
+    margin-top: 10px;
+}
 
 #page-top {
     margin: 0 auto 100px auto;
@@ -745,17 +749,10 @@ body.appear .fluid-lead h2 {
     cursor: pointer;
 }
 
-
-#waveCanvas {
-    position: absolute;
-    bottom: 0;
-    z-index: -1;
-}
-
 small {
     text-align: center;
     display: block;
-    padding: 50px 0;
+    padding: 40px 0;
 }
 
 
@@ -790,7 +787,7 @@ form h2 {
 
 form .grid_content {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 25% 75%;
     place-items: center start;
 
     height: 3rem;
@@ -813,6 +810,10 @@ form .grid_content {
     text-align: center;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 .confirm_content {
     display: grid;
     grid-template-columns: 100px auto;
@@ -823,4 +824,150 @@ form .grid_content {
 .item_input {
     border: 1px solid #ccc;
     border-collapse: collapse;
+}
+
+/* ログインしていない場合 */
+#concept {
+    background: url("../img/flag_01.png") no-repeat left top, url("../img/flag_02.png") no-repeat right top;
+    background-size: 250px auto;
+}
+
+#concept h2 span {
+    color: #2e98e5;
+}
+
+#concept .concept_area {
+    position: relative;
+    padding: 80px 0;
+}
+
+#concept .concept_img {
+    width: 30%;
+    margin: 0 auto;
+    animation-delay: .4s;
+}
+
+#concept .concept_area img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#concept .concept_img_photo {
+    border-radius: 50%;
+}
+
+#concept .concept_area ul {
+    animation-delay: .5s;
+}
+
+#concept .concept_area ul li {
+    position: absolute;
+    font-size: 1.7vw;
+}
+
+#concept .concept_area ul li::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    bottom: -10px;
+    right: 10px;
+    background: #2e98e5;
+}
+
+#concept .concept_area ul li:nth-child(n+4)::after {
+    left: 10px;
+}
+
+#concept .concept_area ul li:nth-child(1) {
+    top: 12%;
+    left: 17%;
+    transform: rotate(15deg);
+    animation-delay: .1s;
+}
+
+#concept .concept_area ul li:nth-child(2) {
+    top: 37%;
+    left: 10%;
+    transform: rotate(10deg);
+    animation-delay: .3s;
+}
+
+#concept .concept_area ul li:nth-child(3) {
+    top: 65%;
+    left: 12%;
+    transform: rotate(-15deg);
+    animation-delay: .5s;
+}
+
+#concept .concept_area ul li:nth-child(4) {
+    top: 12%;
+    right: 17%;
+    transform: rotate(-15deg);
+    animation-delay: .7s;
+}
+
+#concept .concept_area ul li:nth-child(5) {
+    top: 34%;
+    right: 10%;
+    transform: rotate(-10deg);
+    animation-delay: 1.1s;
+}
+
+#concept .concept_area ul li:nth-child(6) {
+    top: 61%;
+    right: 12%;
+    transform: rotate(15deg);
+    animation-delay: 1.3s;
+}
+
+@media screen and (max-width:700px) {
+    #concept .concept_area {
+        padding: 0;
+    }
+
+    #concept .concept_img {
+        width: 50%;
+        margin: 0 auto 30px auto;
+    }
+
+    #concept .concept_area ul li {
+        position: relative;
+        font-size: 1rem;
+        top: inherit !important;
+        left: inherit !important;
+        right: inherit !important;
+        transform: none !important;
+        text-align: center;
+        margin: 0 0 10px 0;
+    }
+
+
+    #concept .concept_area ul li:after {
+        display: none !important;
+    }
+
+}
+
+.concept-btn {
+    text-align: center;
+    padding: 50px 0 0 0;
+}
+
+@media screen and (max-width:400px) {
+    #concept {
+        background-size: 130px auto;
+    }
+}
+
+@media screen and (max-width:768px) {
+    #concept {
+        background-size: 150px auto;
+    }
+}
+
+@media screen and (max-width:1300px) {
+    #concept {
+        background-size: 200px auto;
+    }
 }
