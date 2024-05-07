@@ -98,7 +98,7 @@
         $title = $row['title'];
         $departure_date = $row['departure_date'];
         $arrival_date = $row['arrival_date'];
-        $photo = $row['photo'];
+        $plan_image = $row['plan_image'];
         $week1 = date('w', strtotime($departure_date));
         $week2 = date('w', strtotime($arrival_date));
         // ０～６に対応した曜日の配列を用意
@@ -109,7 +109,7 @@
         $weekArr = $week[$week2];
 
         echo ' <article class="smoothTrigger"><a href="#">';
-        echo ' <figure class="zoomOut"><span class="mask"><img src="', $photo, '" alt=""></span></figure>';
+        echo ' <figure class="zoomOut"><span class="mask"><img src="', $plan_image, '" alt=""></span></figure>';
         echo '<div class="topics-block">';
         echo '<h3 class="trip_title">', $title, '</h3>';
         echo '<p class="schedule_date">', date('Y年m月d日', strtotime($departure_date)), $weekDep, '～', date('Y年m月d日', strtotime($arrival_date)), $weekArr, '</p>';
