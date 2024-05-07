@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php require 'includes/database.php'; ?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -64,7 +65,7 @@
 
     // if (isset($_SESSION['customer'])) {
     //   echo '<p class="user_name">ようこそ&emsp;', $nickname, '様</p>';
-    echo '<hr>';
+    // echo '<hr>';
 
     echo '<form action="index-complete.php" method="post">';
     echo '<div class="confirm_content">';
@@ -105,12 +106,12 @@
       // 'photo' キーが存在しない場合のエラー処理
       echo '<td>ファイルが選択されていません</td>';
     }
-
+    echo '</div>';
     echo '</div>';
     echo '<div class="textalign_center">';
-    echo '<input id="get_time_btn" class="regi_btn" type="submit" value="この内容で登録する">';
+    echo '<input id="get_time_btn" class="btn regi_btn" type="submit" value="この内容で登録する">';
     echo '</div>';
-    echo '</div>';
+
 
 
 
@@ -118,7 +119,7 @@
     echo '<input type="hidden" name="departure_date" value="', $_REQUEST['departure_date'], '">';
     echo '<input type="hidden" name="arrival_date" value="', $_REQUEST['arrival_date'], '">';
     echo '<input type="hidden" name="price" value="', $_REQUEST['price'], '">';
-    echo '<input type="hidden" name="photo" value="', $file, '">';
+    echo '<input type="hidden" name="plan_image" value="', $file, '">';
     echo '</form>';
 
     // } else {

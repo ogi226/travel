@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php require 'includes/database.php'; ?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -57,27 +58,27 @@
     echo '<form action="index-confirm.php" method="post" enctype="multipart/form-data">';
 
     echo '<div class="grid_content">';
-    echo '<h2>タイトル<span class="must">※</span></h2>';
+    echo '<h2>タイトル</h2>';
     echo '<input type="text" id="inputField" name="title" value="" pattern="[^\s]+" title="空白以外の文字を入力してください"  placeholder="タイトル" required>';
     echo '</div>';
 
     echo '<div class="grid_content">';
-    echo '<h2>出発日<span class="must">※</span></h2>';
+    echo '<h2>出発日</h2>';
     echo '<input class=mini-input type="date" id="inputField" name="departure_date" value="{$departure_date}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
     echo '</div>';
 
     echo '<div class="grid_content">';
-    echo '<h2>帰宅日<span class="must">※</span></h2>';
+    echo '<h2>帰宅日</h2>';
     echo '<input type="date" id="inputField" name="arrival_date" value="{$arrival_date}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
     echo '</div>';
 
     echo '<div class="grid_content">';
-    echo '<h2 class="item_name">費用</h2>';
+    echo '<h2>費用</h2>';
     echo '<input class="input_field" type="text" id="inputField" name="price" pattern="[^\s]+" title="空白以外の文字を入力してください" placeholder="費用">';
     echo '</div>';
 
     echo '<div class="grid_content">';
-    echo '<h2 class="item_name">写真</h2>';
+    echo '<h2>写真</h2>';
     echo '<input class="input_field" type="file"  id="photo" name="photo">';
     echo '</div>';
 

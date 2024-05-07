@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php require 'includes/database.php'; ?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -74,7 +75,7 @@
     <?php
     if (isset($_SESSION['customer'])) {
       // ログインしてる
-      echo '<p class="user_name">ようこそ&emsp;', $_SESSION['customer']['nickname'], '様</p>';
+      echo '<p class="user_name">', $_SESSION['customer']['nickname'], 'さん</p>';
     } else {
       // ログインしてない
       echo '<p class="user_name">ようこそ&emsp;ゲスト様</p>';
@@ -90,23 +91,33 @@
       echo $name, '様';
       echo '</div> -->';
       echo '<div class="topics-area">';
-      echo '<article class="smoothTrigger"><a href="schedule.php">';
-      echo '<figure class="zoomOut"><span class="mask"><img src="image/korea_m.jpg" alt=""></span></figure>';
-      echo '<div class="topics-block">';
-      echo '<h3 class="trip_title">韓国旅行</h3>';
-      echo '<p class="schedule_date">2024年6月23日(日)～2024年6月25日(火)</p>';
-      echo '</div>';
-      echo '</a></article>';
 
-      echo ' <article class="smoothTrigger"><a href="#">';
-      echo ' <figure class="zoomOut"><span class="mask"><img src="image/bali_m.jpg" alt=""></span></figure>';
-      echo ' <div class="topics-block">';
-      echo '   <h3 class="trip_title">バリ旅行</h3>';
-      echo '   <p class="schedule_date">2024年11月18日(月)～2024年11月22日(金)</p>';
-      echo ' </div>';
-      echo '</a></article>';
-      echo '</div>';
+      $sql = $pdo->prepare('SELECT * FROM plan WHERE customer_id=? ORDER BY departure_date ASC');
+      $sql->execute([$_SESSION['customer']['id']]);
+      foreach ($sql as $row) {
+        $title = $row['title'];
+        $departure_date = $row['departure_date'];
+        $arrival_date = $row['arrival_date'];
+        $photo = $row['photo'];
+        $week1 = date('w', strtotime($departure_date));
+        $week2 = date('w', strtotime($arrival_date));
+        // ０～６に対応した曜日の配列を用意
+        $week = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"];
+        // 曜日の数字に対応した配列を取得(出発日)
+        $weekDep = $week[$week1];
+        // 曜日の数字に対応した配列を取得(出発日)
+        $weekArr = $week[$week2];
 
+        echo ' <article class="smoothTrigger"><a href="#">';
+        echo ' <figure class="zoomOut"><span class="mask"><img src="', $photo, '" alt=""></span></figure>';
+        echo '<div class="topics-block">';
+        echo '<h3 class="trip_title">', $title, '</h3>';
+        echo '<p class="schedule_date">', date('Y年m月d日', strtotime($departure_date)), $weekDep, '～', date('Y年m月d日', strtotime($arrival_date)), $weekArr, '</p>';
+        echo '</div>';
+        echo '</a></article>';
+      }
+
+      echo '</div>';
       echo '</section>';
     } else {
       echo <<< END

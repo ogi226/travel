@@ -1,15 +1,28 @@
+<?php session_start(); ?>
 <?php require 'includes/database.php'; ?>
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="common/css/common.css">
   <link rel="stylesheet" href="common/css/footer.css">
   <link rel="stylesheet" href="css/customer.css">
-  <title>確認 | 旅のしおり</title>
+  <title>登録内容確認 | 旅のしおり</title>
 </head>
 
 <body>
   <main>
+
+    <div id="top">
+      <div class="back"><a href="index.php">＜ 戻る</a></div>
+      <h1>内容のご確認</h1>
+      <!-- <h2 class="trip_title">韓国旅行</h2> -->
+      <!-- <p class="schedule_date">2024年6月23日(日)～2024年6月25日(火)</p> -->
+    </div>
 
     <?php
     echo '<h1 class="textalign_center">ご入力内容の確認</h1>';
@@ -91,8 +104,8 @@
 
     <script>
       function toggleDisplay() {
-        var password = document.querySelector('#password');
-        var password2 = document.querySelector('.mask_off');
+        let password = document.querySelector('.password');
+        let password2 = document.querySelector('.mask_off');
         password.classList.toggle('pass_display');
         password2.classList.toggle('pass_display');
       }

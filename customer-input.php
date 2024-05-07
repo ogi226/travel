@@ -55,13 +55,13 @@ if (isset($_SESSION['customer'])) {
       echo '</div><!-- /content -->';
     } else {
     ?>
-      <h1 class="textalign_center">会員登録</h1>
+      <!-- <h1 class="textalign_center">会員登録</h1> -->
       <div class="content">
       <?php
       // フォームの出力
       echo <<<END
 <form action="customer-confirm.php" method="post">
-
+<div class="grid_content">
 <div class="item">
 <h2>お名前</h2>
 <input type="text" id="inputField" class="input_field"  name="name" value="{$name}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>
@@ -80,44 +80,26 @@ if (isset($_SESSION['customer'])) {
 <div class="item">
 <h2>パスワード</h2>
 <input type="password" id="inputField" class="input_field"  name="password" value="{$password}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>
-<span class="caution">A-Z、a-z、0-9を少なくとも各1つは含めて8文字以上で入力してください。</span>
 </div>
+<p class="caution textalign_right">A-Z、a-z、0-9を少なくとも各1つは含めて8文字以上で入力してください。</p>
+</div>
+
 
 <div class="textalign_center">
 <input class="btn login_btn" type="submit" value="確認する">
 </div>
 </form>
 
+<div class="link_group">
 ログインは<a href="login-input.php">こちら</a><br>
-<a href="index.php">トップに戻る</a><br>
+
 ログアウトは<a href="logout-input.php">こちら</a><br>
+
+<a href="index.php">トップページに戻る</a><br>
+</div>
 END;
     }
       ?>
-
-      <button id="logoutButton">ログアウト</button>
-
-      <script>
-        // ボタンをクリックしたときにセッションを破棄する関数
-        function logout() {
-          // AJAXを使用してサーバー上でセッションを破棄する
-          var xhr = new XMLHttpRequest();
-          xhr.open('GET', 'logout.php', true);
-          xhr.send();
-
-          // セッションが破棄されたらページを再読み込みする
-          xhr.onload = function() {
-            if (xhr.status == 200) {
-              location.reload();
-            }
-          };
-        }
-
-        // ボタンをクリックしたらlogout関数を実行する
-        document.getElementById('logoutButton').addEventListener('click', logout);
-      </script>
-
-
       </div><!-- /content -->
   </main>
 </body>
