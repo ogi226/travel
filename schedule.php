@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php require 'includes/database.php'; ?>
 
 <html>
 <!DOCTYPE html>
@@ -7,139 +8,212 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/reset.css">
-  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/parts.css">
+  <link rel="stylesheet" type="text/css" href="css/schedule.css">
+  <title>スケジュール</title>
 </head>
 
 <body>
   <?php
-  require 'header.php';
+  // ①しおりの情報を取得
+  $sql = $pdo->prepare('SELECT * FROM plan WHERE id=?');
+  $sql->execute([$_GET['plan_id']]);
+  foreach ($sql as $row) {
+    $title = $row['title'];
+    $departure_date = $row['departure_date'];
+    $departure_date = strtotime($row['departure_date']);
+    $arrival_date = strtotime($row['arrival_date']);
+    $week1 = date('w', $departure_date);
+    $week2 = date('w', $arrival_date);
+    // ０～６に対応した曜日の配列を用意
+    $week = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"];
+    // 曜日の数字に対応した配列を取得(出発日)
+    $weekDep = $week[$week1];
+    // 曜日の数字に対応した配列を取得(出発日)
+    $weekArr = $week[$week2];
+
+    // 日数を計算
+    $days = (($arrival_date - $departure_date) / 86400) + 1;
+    echo $days . '日'; // 1日
+    echo date('Y-m-d', $departure_date);
+  }
   ?>
-  <main>
-    <div id="top">
-      <div class="back"><a href="index.php">＜ 戻る</a></div>
-      <h1>スケジュール</h1>
-      <h2 class="trip_title">韓国旅行</h2>
-      <p class="schedule_date">2024年6月23日(日)～2024年6月25日(火)</p>
+
+  <?php
+  echo '<main>';
+  echo '<div id="top">';
+  echo '<div class="back"><a href="index.php">＜ 戻る</a></div>';
+  echo '<h1>スケジュール</h1>';
+  echo '<h2 class="trip_title">', $title, '</h2>';
+  echo '<p class="schedule_date">', date('Y年m月d日', $departure_date), $weekDep, '～', date('Y年m月d日', $arrival_date), $weekArr, '</p>';
+  echo '</div>';
+
+  // for ($i = 1; $i <= $days; $i++) {
+  //   echo '<h3>', $i, '日目&emsp;', date('Y年m月d日', $departure_date), $weekDep, '</h3>';
+  //   echo '<div class="plan">';
+  //   echo '<div class="container">';
+  // ②計画の情報を取得
+  // URL情報を取得する
+  if (isset($_GET['plan_id'])) {
+    $plan_id = $_GET['plan_id'];
+  }
+
+  // $schedule = $pdo->prepare('SELECT * FROM schedule WHERE plan_id=? and schedule_date=?');
+  // $schedule->execute([$plan_id, date('Y-m-d', $departure_date)]);
+  // foreach ($schedule as $row) {
+  //   $start_time = $row['$start_time'];
+  //   $end_time = $row['$end_time'];
+  //   echo $start_time;
+  //   echo $end_time;
+
+  // クエリの実行
+  $schedule = $pdo->prepare('SELECT * FROM schedule WHERE plan_id=? and schedule_date=?');
+  $schedule->execute([$plan_id, date('Y-m-d', $departure_date)]);
+
+  // クエリのログに記録
+  $queryLog = "SELECT * FROM schedule WHERE plan_id=$plan_id and schedule_date='" . date('Y-m-d', $departure_date) . "'";
+  error_log("Query executed: $queryLog");
+
+  // クエリの実行結果をログに記録
+  $rows = $schedule->fetchAll();
+  if (empty($rows)) {
+    error_log("No rows found for query: $queryLog");
+  } else {
+    error_log("Rows found for query: $queryLog");
+    error_log(print_r($rows, true)); // 結果をログに出力
+  }
+  // }
+  // echo '<p class="item', $i, '"><span class="start">', $start_time, '</span><br>&nbsp;<span class="end">ー', $end_time, '</span></p>';
+  echo '<div class="icon">';
+  echo '<img class="item02" src="image/icon/電車、駅のフリーアイコン.svg" alt="">
+  </div>';
+  echo '<p class="item03">横浜駅→羽田空港国際ターミナル</p>';
+  echo '</div>';
+
+  echo '<hr>';
+
+  $departure_date = strtotime("+1 day", $departure_date);
+  // }
+  ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container">
+    <p class="item01"><span class="start">10:15</span><br>&nbsp;<span class="end">ー10:30</span></p>
+    <div class="icon">
+      <img class="item02" src="image/icon/星アイコン8.svg" alt="">
+    </div>
+    <p class="item03">SIMカード受け取り</p>
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <p class="item01"><span class="start">12:05</span><br>&nbsp;<span class="end">ー14:25</span></p>
+    <div class="icon">
+      <img class="item02" src="image/icon/airplane.svg" alt="">
+    </div>
+    <p class="item03">OZ1075 羽田空港⇒金浦空港</p>
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <p class="item01"><span class="start">15:20</span><br>&nbsp;<span class="end"></span></p>
+    <div class="icon">
+      <img class="item02" src="image/icon/星アイコン8.svg" alt="">
+    </div>
+    <p class="item03">スーツケースを預ける</p>
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <p class="item01"><span class="start">16:00</span><br>&nbsp;<span class="end">ー17:00</span></p>
+    <div class="icon">
+      <img class="item02" src="image/icon/宿泊アイコン1.svg" alt="">
+    </div>
+    <p class="item03">西鉄ソラリアホテル</p>
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <p class="item01"><span class="start">16:00</span><br>&nbsp;<span class="end">ー20:00</span></p>
+    <div class="icon">
+      <img class="item02" src="image/icon/歩くアイコン.svg" alt="">
+    </div>
+    <p class="item03">明洞プラプラ</p>
+  </div>
+  <hr>
+  </div>
+
+  <h3>2日目　2024年6月24日(月)</h3>
+
+  <div class="plan">
+    <div class="container">
+      <p class="item01">09:00</span><br>&nbsp;<span class="end">ー09:01</span></p>
+      <div class="icon">
+        <img class="item02" src="image/icon/電車、駅のフリーアイコン.svg" alt="">
+      </div>
+      <p class="item03">②乙支路3街駅→乙支路入口駅</p>
     </div>
 
+    <hr>
 
-    <h3>1日目　2024年6月23日(日)</h3>
-
-    <div class="plan">
-      <div class="container">
-        <p class="item01"><span class="start">09:05</span><br>&nbsp;<span class="end">ー09:29</span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/電車、駅のフリーアイコン.svg" alt="">
-        </div>
-        <p class="item03">横浜駅→羽田空港国際ターミナル</p>
+    <div class="container">
+      <p class="item01"><span class="start">09:04</span><br>&nbsp;<span class="end">ー09:13</span></p>
+      <div class="icon">
+        <img class="item02" src="image/icon/電車、駅のフリーアイコン.svg" alt="">
       </div>
-
-      <hr>
-
-      <div class="container">
-        <p class="item01"><span class="start">10:15</span><br>&nbsp;<span class="end">ー10:30</span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/星アイコン8.svg" alt="">
-        </div>
-        <p class="item03">SIMカード受け取り</p>
-      </div>
-
-      <hr>
-
-      <div class="container">
-        <p class="item01"><span class="start">12:05</span><br>&nbsp;<span class="end">ー14:25</span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/airplane.svg" alt="">
-        </div>
-        <p class="item03">OZ1075 羽田空港⇒金浦空港</p>
-      </div>
-
-      <hr>
-
-      <div class="container">
-        <p class="item01"><span class="start">15:20</span><br>&nbsp;<span class="end"></span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/星アイコン8.svg" alt="">
-        </div>
-        <p class="item03">スーツケースを預ける</p>
-      </div>
-
-      <hr>
-
-      <div class="container">
-        <p class="item01"><span class="start">16:00</span><br>&nbsp;<span class="end">ー17:00</span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/宿泊アイコン1.svg" alt="">
-        </div>
-        <p class="item03">西鉄ソラリアホテル</p>
-      </div>
-
-      <hr>
-
-      <div class="container">
-        <p class="item01"><span class="start">16:00</span><br>&nbsp;<span class="end">ー20:00</span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/歩くアイコン.svg" alt="">
-        </div>
-        <p class="item03">明洞プラプラ</p>
-      </div>
-      <hr>
+      <p class="item03">②乙支路入口駅→乙支路3街駅→③鍾路3街駅</p>
     </div>
 
-    <h3>2日目　2024年6月24日(月)</h3>
+    <hr>
 
-    <div class="plan">
-      <div class="container">
-        <p class="item01">09:00</span><br>&nbsp;<span class="end">ー09:01</span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/電車、駅のフリーアイコン.svg" alt="">
-        </div>
-        <p class="item03">②乙支路3街駅→乙支路入口駅</p>
+    <div class="container">
+      <p class="item01"><span class="start">09:15</span><br>&nbsp;<span class="end">ー11:00</span></p>
+      <div class="icon">
+        <img class="item02" src="image/icon/歩くアイコン.svg" alt="">
       </div>
-
-      <hr>
-
-      <div class="container">
-        <p class="item01"><span class="start">09:04</span><br>&nbsp;<span class="end">ー09:13</span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/電車、駅のフリーアイコン.svg" alt="">
-        </div>
-        <p class="item03">②乙支路入口駅→乙支路3街駅→③鍾路3街駅</p>
-      </div>
-
-      <hr>
-
-      <div class="container">
-        <p class="item01"><span class="start">09:15</span><br>&nbsp;<span class="end">ー11:00</span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/歩くアイコン.svg" alt="">
-        </div>
-        <p class="item03">益善洞散策</p>
-      </div>
-
-      <hr>
-
-      <div class="container">
-        <p class="item01"><span class="start">11:30</span><br>&nbsp;<span class="end">ー12:30</span></p>
-        <div class="icon">
-          <img class="item02" src="image/icon/フォークとナイフのお食事アイコン素材.svg" alt="">
-        </div>
-        <p class="item03">ミルトースト</p>
-      </div>
-
-      <hr>
-
+      <p class="item03">益善洞散策</p>
     </div>
 
-    <!-- 追加ボタン -->
-    <?php
-    echo '<a href="schedule-input.php">';
-    echo ' <div class="add_img">';
-    echo '<img src="image/icon/plus-circle.svg" alt="">';
-    echo ' </div>';
-    echo '</a>';
-    ?>
+    <hr>
+
+    <div class="container">
+      <p class="item01"><span class="start">11:30</span><br>&nbsp;<span class="end">ー12:30</span></p>
+      <div class="icon">
+        <img class="item02" src="image/icon/フォークとナイフのお食事アイコン素材.svg" alt="">
+      </div>
+      <p class="item03">ミルトースト</p>
+    </div>
+
+    <hr>
+
+  </div>
+
+  <!-- 追加ボタン -->
+  <?php
+  echo '<a href="schedule-input.php?plan_id=', $_GET['plan_id'], '">';
+  echo ' <div class="add_img">';
+  echo '<img src="image/icon/plus-circle.svg" alt="">';
+  echo ' </div>';
+  echo '</a>';
+  ?>
 
 
 

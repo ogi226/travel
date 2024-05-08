@@ -63,13 +63,9 @@ body {
 }
 
 .schedule_date {
-    font-size: clamp(8px, 2.6666vw, 24px);
+    font-size: clamp(10px, 2.6666vw, 24px);
 }
 
-.user_name {
-    width: 90%;
-    margin: 0 auto;
-}
 
 /* レイアウトのためのCSS */
 
@@ -736,10 +732,6 @@ body.appear .fluid-lead h2 {
 }
 
 /* footer */
-footer {
-    background-color: #DF4456;
-    margin-top: 10px;
-}
 
 #page-top {
     margin: 0 auto 100px auto;
@@ -753,10 +745,17 @@ footer {
     cursor: pointer;
 }
 
+
+#waveCanvas {
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+}
+
 small {
     text-align: center;
     display: block;
-    padding: 40px 0;
+    padding: 50px 0;
 }
 
 
@@ -814,10 +813,6 @@ form .grid_content {
     text-align: center;
 }
 
-.underline {
-    text-decoration: underline;
-}
-
 .confirm_content {
     display: grid;
     grid-template-columns: 100px auto;
@@ -826,325 +821,6 @@ form .grid_content {
 
 .item_name,
 .item_input {
-    border-bottom: 1px solid #ccc;
-    border-collapse: collapse;
-}
-
-/* 確認ボタン */
-.btn {
     border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 8px 12px;
-    margin: 10px;
-}
-
-/* ログインしていない場合 */
-.top_title {
-    font-size: 20pt;
-    margin: 12px 0;
-}
-
-#concept {
-    background: url("../img/flag_01.png") no-repeat left top, url("../img/flag_02.png") no-repeat right top;
-    background-size: 250px auto;
-}
-
-#concept .concept_text {
-    font-size: 24px;
-    font-weight: bold;
-    color: #2e98e5;
-}
-
-#concept .concept_area {
-    position: relative;
-    padding: 80px 0;
-}
-
-#concept .concept_img {
-    width: 30%;
-    margin: 0 auto;
-    animation-delay: .4s;
-}
-
-#concept .concept_area img {
-    object-fit: cover;
-}
-
-#concept .concept_img_photo {
-    border-radius: 50%;
-}
-
-#concept .concept_area ul {
-    animation-delay: .5s;
-}
-
-#concept .concept_area ul li {
-    position: absolute;
-    font-size: 1.7vw;
-}
-
-#concept .concept_area ul li::after {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 2px;
-    bottom: -10px;
-    right: 10px;
-    background: #2e98e5;
-}
-
-#concept .concept_area ul li:nth-child(n+4)::after {
-    left: 10px;
-}
-
-/* 旅のしおり作成 */
-#concept .concept_area ul li:nth-child(1) {
-    /* ↓元12% */
-    top: 5%;
-    left: 17%;
-    transform: rotate(15deg);
-    animation-delay: .1s;
-}
-
-/* メンバーと予定を共有 */
-#concept .concept_area ul li:nth-child(2) {
-    /* ↓元37% */
-    top: 16%;
-    left: 10%;
-    transform: rotate(10deg);
-    animation-delay: .3s;
-}
-
-/* 日記を残そう */
-#concept .concept_area ul li:nth-child(3) {
-    /* ↓元65% */
-    top: 28%;
-    left: 18%;
-    transform: rotate(-15deg);
-    animation-delay: .5s;
-}
-
-/* チャット機能 */
-#concept .concept_area ul li:nth-child(4) {
-    /* ↓元12% */
-    top: 5%;
-    right: 17%;
-    transform: rotate(-15deg);
-    animation-delay: .7s;
-}
-
-/* 持ち物リスト */
-#concept .concept_area ul li:nth-child(5) {
-    /* ↓元34% */
-    top: 16%;
-    right: 14%;
-    transform: rotate(-10deg);
-    animation-delay: 1.1s;
-}
-
-/* フォト共有・公開 */
-#concept .concept_area ul li:nth-child(6) {
-    /* ↓元61% */
-    top: 28%;
-    right: 18%;
-    transform: rotate(15deg);
-    animation-delay: 1.3s;
-}
-
-#concept .section {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
-
-#concept .section h4 {
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px 8px;
-}
-
-#concept .section p {
-    line-height: 24px;
-    padding: 10px 8px;
-    width: 60%;
-    margin: 0 auto;
-}
-
-#concept .sec_img {
-    width: 70%;
-    margin: 0 auto;
-}
-
-@media screen and (max-width:700px) {
-    #concept .concept_area {
-        padding: 0;
-    }
-
-    #concept .concept_img {
-        width: 50%;
-        margin: 0 auto 30px auto;
-    }
-
-    #concept .concept_area ul li {
-        position: relative;
-        font-size: 1rem;
-        top: inherit !important;
-        left: inherit !important;
-        right: inherit !important;
-        transform: none !important;
-        text-align: center;
-        margin: 0 0 10px 0;
-    }
-
-
-    #concept .concept_area ul li:after {
-        display: none !important;
-    }
-
-}
-
-.concept-btn {
-    text-align: center;
-    padding: 100px 0 50px;
-}
-
-@media screen and (max-width:400px) {
-    #concept {
-        background-size: 130px auto;
-    }
-}
-
-@media screen and (max-width:768px) {
-    #concept {
-        background-size: 150px auto;
-    }
-}
-
-@media screen and (max-width:1300px) {
-    #concept {
-        background-size: 200px auto;
-    }
-}
-
-/* 4-1 ふわっ（その場で） */
-.fadeIn {
-    animation-name: fadeInAnime;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    opacity: 0;
-}
-
-@keyframes fadeInAnime {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-/* 4-2 ふわっ（下から） */
-
-.fadeUp {
-    animation-name: fadeUpAnime;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    opacity: 0;
-}
-
-@keyframes fadeUpAnime {
-    from {
-        opacity: 0;
-        transform: translateY(100px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 4-2 パタッ（左上へ） */
-.flipLeftTop {
-    animation-name: flipLeftTopAnime;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    opacity: 0;
-}
-
-@keyframes flipLeftTopAnime {
-    from {
-        transform: translate(-20px, 80px) rotate(-15deg);
-        opacity: 0;
-    }
-
-    to {
-        transform: translate(0, 0) rotate(0deg);
-        opacity: 1;
-    }
-}
-
-/* 4-2 パタッ（右上へ） */
-.flipRightTop {
-    animation-name: flipRightTopAnime;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-    opacity: 0;
-}
-
-@keyframes flipRightTopAnime {
-    from {
-        transform: translate(-20px, 80px) rotate(25deg);
-        opacity: 0;
-    }
-
-    to {
-        transform: translate(0, 1) rotate(0deg);
-        opacity: 1;
-    }
-}
-
-/* 4-4 ボンッ（拡大） */
-.zoomIn {
-    animation-name: zoomInAnime;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes zoomInAnime {
-    from {
-        transform: scale(0.6);
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-/* スクロールをしたら出現する要素にはじめに透過0を指定　*/
-/* .flipRightTopTrigger,  */
-/* .zoomInTrigger, */
-.fadeUpTrigger,
-.flipLeftTopTrigger {
-    opacity: 0;
-}
-
-/* コンテンツが少ないときはフッターは下部に */
-.wrap {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    grid-template-columns: 100%;
-    min-height: 100vh;
-}
-
-/* しおり作成完了　index.complete.php */
-.content {
-    background-color: #fff;
-    width: 90%;
-    margin: 0 auto;
-    border-radius: 10px;
-    padding: 20px;
+    border-collapse: collapse;
 }

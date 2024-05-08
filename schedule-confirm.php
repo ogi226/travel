@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php require 'includes/database.php'; ?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -18,14 +19,20 @@
   <!--自作のCSS-->
   <link rel="stylesheet" type="text/css" href="css/reset.css">
   <link rel="stylesheet" type="text/css" href="css/parts.css">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/schedule.css">
 </head>
 
 <body>
   <main>
+    <?php
+    // URL情報を取得する
+    if (isset($_GET['plan_id'])) {
+      $plan_id = $_GET['plan_id'];
+    }
+    ?>
     <div id="top">
       <div class="back"><a href="index.php">＜ 戻る</a></div>
-      <h1>しおり作成</h1>
+      <h1>スケジュール作成</h1>
       <h2 class="trip_title">確認</h2>
     </div>
 
@@ -41,14 +48,13 @@
     }
     ?>
 
-
-
     <?php
     if (!empty($_FILES['newphoto']['full_path'])) {
       $photo = 'upload/' . $_FILES['newphoto']['full_path'];
       $_FILES['photo'] = $_FILES['newphoto'];
     } else {
-      $photo = $_FILES['photo']['name'];
+      // $photo = $_FILES['photo']['name'];
+      echo '画像選択なし';
     }
     ?>
 
@@ -66,21 +72,42 @@
     //   echo '<p class="user_name">ようこそ&emsp;', $nickname, '様</p>';
     echo '<hr>';
 
-    echo '<form action="index-complete.php" method="post">';
+    echo '<form action="schedule-complete.php?plan_id=', $plan_id, '" method="post">';
     echo '<div class="confirm_content">';
 
+
+    echo '<div class="grid_content item">';
     echo '<div class="item_name">タイトル</div>';
     echo '<div class="item_input">',  $_REQUEST['title'], '</div>';
+    echo '</div>';
 
-    echo '<div class="item_name">出発日</div>';
-    echo '<div class="item_input">', $_REQUEST['departure_date'], '</div>';
+    echo '<div class="grid_content item">';
+    echo '<div class="item_name">日付</div>';
+    echo '<div class="item_input">',  $_REQUEST['schedule_date'], '</div>';
+    echo '</div>';
 
-    echo '<div class="item_name">帰宅日</div>';
-    echo '<div class="item_input">', $_REQUEST['arrival_date'], '</div>';
+    echo '<div class="grid_content item">';
+    echo '<div class="item_name">開始時刻</div>';
+    echo '<div class="item_input">', $_REQUEST['start_time'], '</div>';
+    echo '</div>';
 
+    echo '<div class="grid_content item">';
+    echo '<div class="item_name">終了時刻</div>';
+    echo '<div class="item_input">', $_REQUEST['end_time'], '</div>';
+    echo '</div>';
+
+    echo '<div class="grid_content item">';
+    echo '<div class="item_name">アイコン</div>';
+    // echo '<div class="item_input">', $_REQUEST['icon'], '</div>';
+    echo '<img class="icon_img" src="', $_REQUEST['icon'], '" alt="">';
+    echo '</div>';
+
+    echo '<div class="grid_content item">';
     echo '<div class="item_name">費用</div>';
     echo '<div class="item_input">', $_REQUEST['price'], '</div>';
+    echo '</div>';
 
+    echo '<div class="grid_content item">';
     echo '<div class="item_name">写真</div>';
     echo '<div class="item_input">';
     if (isset($_FILES['photo']) && !empty($_FILES['photo']['tmp_name'])) {
@@ -105,18 +132,21 @@
       // 'photo' キーが存在しない場合のエラー処理
       echo '<td>ファイルが選択されていません</td>';
     }
+    echo '</div>';
 
     echo '</div>';
     echo '<div class="textalign_center">';
-    echo '<input id="get_time_btn" class="regi_btn" type="submit" value="この内容で登録する">';
+    echo '<input  id="get_time_btn" class="create_btn regi_btn" type="submit" value="この内容で登録する">';
     echo '</div>';
     echo '</div>';
 
 
 
     echo '<input type="hidden" name="title" value="', $_REQUEST['title'], '">';
-    echo '<input type="hidden" name="departure_date" value="', $_REQUEST['departure_date'], '">';
-    echo '<input type="hidden" name="arrival_date" value="', $_REQUEST['arrival_date'], '">';
+    echo '<input type="hidden" name="schedule_date" value="', $_REQUEST['schedule_date'], '">';
+    echo '<input type="hidden" name="start_time" value="', $_REQUEST['start_time'], '">';
+    echo '<input type="hidden" name="end_time" value="', $_REQUEST['end_time'], '">';
+    echo '<input type="hidden" name="icon" value="', $_REQUEST['icon'], '">';
     echo '<input type="hidden" name="price" value="', $_REQUEST['price'], '">';
     echo '<input type="hidden" name="photo" value="', $file, '">';
     echo '</form>';

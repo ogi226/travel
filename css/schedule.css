@@ -780,7 +780,6 @@ small {
 /*フォーム部分 */
 form {
     padding: 10px;
-    border: 1px solid #ccc;
     background-color: #fff;
 }
 
@@ -810,6 +809,23 @@ form .grid_content {
     background: #DF4456;
 }
 
+/* フォーム内の区切り線 */
+.item h2::after {
+    content: '';
+    background-color: #DF4456;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%;
+}
+
+.item .input_field,
+.item .input_result {
+    padding-left: 8px;
+}
+
 .textalign_center {
     text-align: center;
 }
@@ -818,17 +834,16 @@ form .grid_content {
     text-decoration: underline;
 }
 
-.confirm_content {
+/* .confirm_content {
     display: grid;
     grid-template-columns: 100px auto;
 
-}
+} */
 
-.item_name,
-.item_input {
+/* .item_input {
     border-bottom: 1px solid #ccc;
     border-collapse: collapse;
-}
+} */
 
 /* 確認ボタン */
 .btn {
@@ -1138,6 +1153,32 @@ form .grid_content {
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 100%;
     min-height: 100vh;
+}
+
+/* スケジュール作成　schedule.input.php */
+/* アイコン選択肢 */
+select.imgSel {
+    background-repeat: no-repeat;
+    background-position: 2px 0;
+    /* 背景画像を若干右に移動 */
+    padding-left: 30px;
+    /* 画像.width + α background-position */
+    height: 24px;
+    /* 画像.height + 2 (borderの分を足す) */
+    font-size: 16px;
+    /* 画像.height - 3 */
+}
+
+_::-webkit-full-page-media,
+_:future,
+select.imgSel {
+    -webkit-appearance: button;
+    appearance: button;
+}
+
+/* スケジュール作成確認　schedule-confirm.php */
+.icon_img {
+    width: 20px;
 }
 
 /* しおり作成完了　index.complete.php */

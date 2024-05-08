@@ -29,6 +29,88 @@ body {
   text-align: left;
 }
 
-.input_field {
+.back a {
+  color: #fff;
+}
+
+
+
+.content {
+  background-color: #fff;
+  width: 90%;
+  margin: 20px auto;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  outline: none;
+}
+
+.textalign_center {
+  text-align: center;
+}
+
+
+.content,
+form {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 90%;
+  padding: 10px 2px;
+  border-radius: 10px;
+  margin: 20px auto;
+}
+
+.caution {
+  font-size: 8px;
+  color: red;
+}
+
+.item {
+  font-size: 12px;
+  display: grid;
+  grid-template-columns: 100px 231px;
+  grid-template-rows: 30px;
+  border-bottom: 1px solid #ccc;
+}
+
+.item h2 {
+  padding-left: 4px;
+  height: 28px;
+  line-height: 28px;
+  align-items: center;
+
+  position: relative;
+}
+
+/* フォーム内の区切り線 */
+.item h2::after {
+  content: '';
+  background-color: #DF4456;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 60%;
+}
+
+.item .input_field,
+.item .input_result {
+  padding-left: 8px;
+}
+
+/* 確認ボタン */
+.btn {
   border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin: 10px;
+}
+
+.link_group {
+  width: 90%;
+  margin: 0 auto;
 }
