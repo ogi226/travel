@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="common/css/common.css">
   <link rel="stylesheet" href="common/css/footer.css">
   <link rel="stylesheet" type="text/css" href="css/parts.css">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
-  <title>作成完了 | 旅のしおり</title>
+  <link rel="stylesheet" type="text/css" href="css/schedule.css">
+  <title>スケジュール作成完了 | 旅のしおり</title>
 </head>
 
 <?php
@@ -28,6 +28,12 @@ if (isset($_SESSION['customer'])) {
   $mail = $_SESSION['customer']['mail'];
   $password = $_SESSION['customer']['password'];
 }
+
+// URL情報を取得する
+if (isset($_GET['plan_id'])) {
+  $plan_id = $_GET['plan_id'];
+}
+
 // 現在の日時を取得
 date_default_timezone_set('Asia/Tokyo');
 $current_time = date('Y/m/d H:i:s');
@@ -37,29 +43,31 @@ $current_time = date('Y/m/d H:i:s');
   <main>
     <div id="top">
       <div class="back"><a href="index.php">＜ 戻る</a></div>
-      <h1>しおり作成完了</h1>
+      <h1>スケジュール作成完了</h1>
       <h2 class="trip_title"></h2>
     </div>
     <?php
     if (isset($_SESSION['customer'])) {
       // true セットされている=ログイン中だったら
-      $sql = $pdo->prepare('INSERT INTO plan VALUES(null,?,?,?,?,?,?,?,?,NULL)');
+      $sql = $pdo->prepare('INSERT INTO schedule VALUES(null,?,?,?,?,?,?,?,?,?,?)');
       $sql->execute([
         $_REQUEST['title'],
-        $_REQUEST['departure_date'],
-        $_REQUEST['arrival_date'],
-        $_REQUEST['price'],
-        $_REQUEST['plan_image'],
-        $_SESSION['customer']['id'],
+        $_REQUEST['schedule_date'],
+        $_REQUEST['start_time'],
+        $_REQUEST['end_time'],
+        $_REQUEST['icon'],
+        $id,
+        $plan_id,
+        $current_time,
         $current_time,
         $current_time
       ]);
       echo '<p class="user_name">', $_SESSION['customer']['nickname'], 'さん</p>';
 
       echo '<div class="content">';
-      echo '<h1 class="textalign_center">新しいしおりができました</h1>';
-      echo '<p class="textalign_center">プラン一覧を確認する</p>';
-      echo '<div class="topics-btn smoothTrigger textalign_center"><a href="index.php" class="btnlinestretches4"><span>一覧</span></a></div>';
+      echo '<h1 class="textalign_center">新しいスケジュールを追加しました</h1>';
+      echo '<p class="textalign_center">スケジュール一覧を確認する</p>';
+      echo '<div class="topics-btn smoothTrigger textalign_center"><a href="schedule.php?plan_id=', $plan_id, '" class="btnlinestretches4"><span>一覧</span></a></div>';
       echo '</div>';
       echo '';
       echo '';
@@ -67,7 +75,7 @@ $current_time = date('Y/m/d H:i:s');
     } else {
       echo '<p>エラーが発生しました。</p>';
       echo '<p>再度登録をお願いいたします。</p>';
-      echo '<a href="index-input.php?category=', $_REQUEST['category'], '"><p>入力画面に戻る</p></a>';
+      echo '<a href="schedule-input.php?category=', $_REQUEST['category'], '"><p>入力画面に戻る</p></a>';
     }
     ?>
 

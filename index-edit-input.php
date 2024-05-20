@@ -6,7 +6,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>新規作成</title>
+  <title>新規作成 | 旅のしおり</title>
   <meta name="description" content="旅の計画を立てるサイトです">
   <meta name="robots" content="noindex,nofollow">
   <meta name="keywords" content="">
@@ -24,9 +24,9 @@
 
 <main>
   <div id="top" class="textalign_center">
-    <div class="back"><a href="javascript:history.back()">＜ 戻る</a></div>
-    <h1>しおり作成 | 旅のしおり</h1>
-    <h2 class="trip_title">新規登録</h2>
+    <div class="back"><a href="index.php">＜ 戻る</a></div>
+    <h1>しおり編集</h1>
+    <h2 class="trip_title">編集入力</h2>
   </div>
 
   <body class="appear">
@@ -44,8 +44,20 @@
     }
 
     // URL情報を取得する
-    if (isset($_GET['id'])) {
-      $plan_id = $_GET['id'];
+    if (isset($_GET['plan_id'])) {
+      $plan_id = $_GET['plan_id'];
+    }
+
+    // クエリの実行
+    $sql = $pdo->prepare('SELECT * FROM plan WHERE id=?');
+    $sql->execute([$plan_id]);
+
+    foreach ($sql as $row) {
+      $title = $row['title'];
+      $departure_date = $row['departure_date'];
+      $arrival_date = $row['arrival_date'];
+      $price = $row['price'];
+      $plan_image = $row['plan_image'];
     }
     ?>
 
@@ -53,41 +65,49 @@
 
     // if (isset($_SESSION['customer'])) {
     // true セットされている=ログイン中だったら
+    echo '<p class="textalign_center mt_20">編集して更新ボタンを押してください</p>';
 
     echo '<div class="content">';
-    echo '<form class="form"  action="index-confirm.php" method="post" enctype="multipart/form-data">';
+    echo '<form class="form" action="index-edit-confirm.php?plan_id=', $plan_id, '" method="post" enctype="multipart/form-data">';
 
     echo '<div class="grid_content">';
     echo '<h2>タイトル</h2>';
-    echo '<input type="text" id="inputField" name="title" value="" pattern="[^\s]+" title="空白以外の文字を入力してください"  placeholder="タイトル" required>';
+    echo '<input type="text" id="inputField" name="title" value="', $title, '" pattern="[^\s]+" title="空白以外の文字を入力してください"  placeholder="タイトル" required>';
     echo '</div>';
 
     echo '<div class="grid_content">';
     echo '<h2>出発日</h2>';
-    echo '<input class=mini-input type="date" id="inputField" name="departure_date" value="{$departure_date}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
+    echo '<input class=mini-input type="date" id="inputField" name="departure_date" value="', $departure_date, '" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
     echo '</div>';
 
     echo '<div class="grid_content">';
     echo '<h2>帰宅日</h2>';
-    echo '<input type="date" id="inputField" name="arrival_date" value="{$arrival_date}" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
+    echo '<input type="date" id="inputField" name="arrival_date" value="', $arrival_date, '" pattern="[^\s]+" title="空白以外の文字を入力してください" required>';
     echo '</div>';
 
     echo '<div class="grid_content">';
     echo '<h2>費用</h2>';
-    echo '<input class="input_field" type="number" id="inputField" name="price" pattern="\d*"  title="数字のみ入力してください" placeholder="費用">';
+    echo '<input class="input_field" type="text" id="inputField" name="price" value="&yen;', number_format($price), '"pattern="[^\s]+" title="空白以外の文字を入力してください" placeholder="費用">';
+    // echo '<input class="input_field" type="text" id="inputField" name="price" value="', $price, '"pattern="[^\s]+" title="空白以外の文字を入力してください" placeholder="費用">';
     echo '</div>';
 
     echo '<div class="grid_content">';
     echo '<h2>写真</h2>';
-    echo '<input class="input_field" type="file"  id="photo" name="photo">';
+    echo '<input class="input_field" type="file"  id="photo" name="photo" value="', $plan_image, '" >';
     echo '</div>';
 
-    // echo '<input type="file" id="photo" class="input_field" name="newphoto" accept="image/*" onchange="previewPhoto(event)">';
-    // echo '<input type="hidden" name="photo" value="', $file, '">';
     echo '</div>';
+
+    echo '<input type="hidden" name="plan_image" value="', $plan_image, '">';
 
     echo '<div class="textalign_center">';
-    echo '<input class="create_btn" type="submit" value="作成する">';
+    echo '<input class="create_btn" type="submit" value="更新する">';
+    echo '</div>';
+    echo '</form>';
+
+    echo '<form action="index-delete.php?plan_id=', $plan_id, '" method="post" enctype="multipart/form-data">';
+    echo '<div class="textalign_center mt_20">';
+    echo '<input class="delete_btn" type="submit" value="削除する">';
     echo '</div>';
     echo '</form>';
     ?>

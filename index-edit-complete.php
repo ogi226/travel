@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="common/css/footer.css">
   <link rel="stylesheet" type="text/css" href="css/parts.css">
   <link rel="stylesheet" type="text/css" href="css/index.css">
-  <title>作成完了 | 旅のしおり</title>
+  <title>編集完了 | 旅のしおり</title>
 </head>
 
 <?php
@@ -35,29 +35,34 @@ $current_time = date('Y/m/d H:i:s');
 
 <body>
   <main>
-    <div id="top">
-      <div class="back"><a href="index.php">＜ 戻る</a></div>
-      <h1>しおり作成完了</h1>
+    <div id="top" class="textalign_center mt-20">
+      <div class="back"><a href="javascript:history.back()">＜ 戻る</a></div>
+      <h1>しおり更新成完了</h1>
       <h2 class="trip_title"></h2>
     </div>
     <?php
+    // URL情報を取得する
+    if (isset($_GET['plan_id'])) {
+      $plan_id = $_GET['plan_id'];
+    }
+
     if (isset($_SESSION['customer'])) {
       // true セットされている=ログイン中だったら
-      $sql = $pdo->prepare('INSERT INTO plan VALUES(null,?,?,?,?,?,?,?,?,NULL)');
+      $sql = $pdo->prepare('UPDATE plan SET title=?,departure_date=?, arrival_date=?,price=?,plan_image=?,updated_at=? WHERE id=?');
       $sql->execute([
         $_REQUEST['title'],
         $_REQUEST['departure_date'],
         $_REQUEST['arrival_date'],
-        $_REQUEST['price'],
+        preg_replace("/[^0-9]/", "", mb_convert_kana($_REQUEST['price'], 'n')),
         $_REQUEST['plan_image'],
-        $_SESSION['customer']['id'],
         $current_time,
-        $current_time
+        $plan_id
       ]);
+
       echo '<p class="user_name">', $_SESSION['customer']['nickname'], 'さん</p>';
 
       echo '<div class="content">';
-      echo '<h1 class="textalign_center">新しいしおりができました</h1>';
+      echo '<h1 class="textalign_center">しおりが更新できました</h1>';
       echo '<p class="textalign_center">プラン一覧を確認する</p>';
       echo '<div class="topics-btn smoothTrigger textalign_center"><a href="index.php" class="btnlinestretches4"><span>一覧</span></a></div>';
       echo '</div>';

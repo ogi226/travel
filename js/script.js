@@ -356,24 +356,7 @@ var unit = 100,
  * 
  * Initialize variables and begin the animation.
  */
-function init() {
-	info.seconds = 0;
-	info.t = 0;
-	canvasList = [];
-	colorList = [];
-	// canvas1個めの色指定
-	canvasList.push(document.getElementById("waveCanvas"));
-	colorList.push(['#DF4456', '#DF4456']);//重ねる波の色設定
-	// 各キャンバスの初期化
-	for (var canvasIndex in canvasList) {
-		var canvas = canvasList[canvasIndex];
-		canvas.width = document.documentElement.clientWidth; //Canvasのwidthをウィンドウの幅に合わせる
-		canvas.height = 200;//波の高さ
-		canvas.contextCache = canvas.getContext("2d");
-	}
-	// 共通の更新処理呼び出し
-	update();
-}
+
 
 function update() {
 	for (var canvasIndex in canvasList) {
@@ -446,7 +429,7 @@ function drawSine(canvas, t, zoom, delay) {
 	}
 }
 
-init();
+
 
 /*===========================================================*/
 /* 関数をまとめる*/
@@ -461,38 +444,87 @@ $(window).scroll(function () {
 // ページが読み込まれたらすぐに動かしたい場合の記述
 $(window).on('load', function () {
 
-	/*===========================================================*/
-	/*機能編  4-1-2 プログレスバー＋数字カウントアップ*/
-	/*===========================================================*/
+});// ここまでページが読み込まれたらすぐに動かしたい場合の記述
 
-	//テキストのカウントアップ+バーの設定
-	var bar = new ProgressBar.Line(splash_text, {//id名を指定
-		easing: 'easeInOut',//アニメーション効果linear、easeIn、easeOut、easeInOutが指定可能
-		duration: 1000,//時間指定(1000＝1秒)
-		strokeWidth: 0.2,//進捗ゲージの太さ
-		// color: '#00b7b8',//進捗ゲージのカラー
-		color: '#fff',//進捗ゲージのカラー
-		trailWidth: 0.2,//ゲージベースの線の太さ
-		trailColor: '#ccc',//ゲージベースの線のカラー
-		text: {//テキストの形状を直接指定				
-			style: {//天地中央に配置
-				position: 'absolute',
-				left: '50%',
-				top: '50%',
-				padding: '0',
-				margin: '-30px 0 0 0',//バーより上に配置
-				transform: 'translate(-50%,-50%)',
-				'font-size': '1rem',
-				// color: '#00b7b8',
-				color: '#fff',
-			},
-			autoStyleContainer: false //自動付与のスタイルを切る
-		},
-		step: function (state, bar) {
-			bar.setText(Math.round(bar.value() * 100) + ' %'); //テキストの数値
+function fadeAnime() {
+
+	//4-1 ふわっ（その場で）
+	$('.fadeInTrigger').each(function () { //fadeInTriggerというクラス名が
+		var elemPos = $(this).offset().top - 50;//要素より、50px上の
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight) {
+			$(this).addClass('fadeIn');// 画面内に入ったらfadeInというクラス名を追記
+		} else {
+			$(this).removeClass('fadeIn');// 画面外に出たらfadeInというクラス名を外す
+		}
+	});
+	//4-1 ふわっ（下から）
+	$('.fadeUpTrigger').each(function () { //fadeUpTriggerというクラス名が
+		var elemPos = $(this).offset().top - 50;//要素より、50px上の
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight) {
+			$(this).addClass('fadeUp');// 画面内に入ったらfadeUpというクラス名を追記
+		} else {
+			$(this).removeClass('fadeUp');// 画面外に出たらfadeUpというクラス名を外す
 		}
 	});
 
+	//4-2 パタッ（左上へ）
+	$('.flipLeftTopTrigger').each(function () { //flipLeftTopTriggerというクラス名が
+		var elemPos = $(this).offset().top - 50;//要素より、50px上の
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight) {
+			$(this).addClass('flipLeftTop');// 画面内に入ったらflipLeftTopというクラス名を追記
+		} else {
+			$(this).removeClass('flipLeftTop');// 画面外に出たらflipLeftTopというクラス名を外す
+		}
+	});
 
-});// ここまでページが読み込まれたらすぐに動かしたい場合の記述
+	//4-2 パタッ（右上へ）
+	$('.flipRightTopTrigger').each(function () { //flipRightTopTriggerというクラス名が
+		var elemPos = $(this).offset().top - 50;//要素より、50px上の
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight) {
+			$(this).addClass('flipRightTop');// 画面内に入ったらflipRightTopというクラス名を追記
+		} else {
+			$(this).removeClass('flipRightTop');// 画面外に出たらflipRightTopというクラス名を外す
+		}
+	});
+
+	// 4-4 ボンッ（拡大）
+	$('.zoomInTrigger').each(function () { //zoomInTriggerというクラス名が
+		var elemPos = $(this).offset().top - 50;//要素より、50px上の
+		var scroll = $(window).scrollTop();
+		var windowHeight = $(window).height();
+		if (scroll >= elemPos - windowHeight) {
+			$(this).addClass('zoomIn');// 画面内に入ったらzoomInというクラス名を追記
+		} else {
+			$(this).removeClass('zoomIn');// 画面外に出たらzoomInというクラス名を外す
+		}
+	});
+}
+
+// モーダル
+$(function () {
+	$('.openModal').click(function () {
+		$(this).closest('.mask').find('.modalArea').fadeIn();
+	});
+	$('.closeModal , .modalBg').click(function () {
+		$(this).closest('.modalArea').fadeOut();
+	});
+});
+// ↓背景部分
+const modalBg = document.getElementById('modalBg');
+
+// ↓画面をクリックすると非表示になる
+modalBg.addEventListener('click', modalClose);
+function modalClose() {
+	// modalArea.style.display = 'none';
+	$(this).closest('.modalArea').fadeOut();
+}
+
 

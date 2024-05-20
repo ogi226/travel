@@ -6,7 +6,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>確認</title>
+  <title>確認 | 旅のしおり</title>
   <meta name="description" content="旅の計画を立てるサイトです">
   <meta name="robots" content="noindex,nofollow">
   <meta name="keywords" content="">
@@ -24,8 +24,8 @@
 
 <body>
   <main>
-    <div id="top">
-      <div class="back"><a href="index.php">＜ 戻る</a></div>
+    <div id="top" class="textalign_center">
+      <div class="back"><a href="javascript:history.back()">＜ 戻る</a></div>
       <h1>しおり作成</h1>
       <h2 class="trip_title">確認</h2>
     </div>
@@ -63,11 +63,8 @@
       echo "ファイルがアップロードされていないか、エラーが発生しました。";
     }
 
-    // if (isset($_SESSION['customer'])) {
-    //   echo '<p class="user_name">ようこそ&emsp;', $nickname, '様</p>';
-    // echo '<hr>';
-
-    echo '<form action="index-complete.php" method="post">';
+    echo '<div class="content">';
+    echo '<form  class="form" action="index-complete.php" method="post">';
     echo '<div class="confirm_content">';
 
     echo '<div class="item_name">タイトル</div>';
@@ -80,7 +77,7 @@
     echo '<div class="item_input">', $_REQUEST['arrival_date'], '</div>';
 
     echo '<div class="item_name">費用</div>';
-    echo '<div class="item_input">', $_REQUEST['price'], '</div>';
+    echo '<div class="item_input">&yen;', $_REQUEST['price'], '</div>';
 
     echo '<div class="item_name">写真</div>';
     echo '<div class="item_input">';
@@ -108,8 +105,11 @@
     }
     echo '</div>';
     echo '</div>';
+
+    echo '</div>'; // content
+
     echo '<div class="textalign_center">';
-    echo '<input id="get_time_btn" class="btn regi_btn" type="submit" value="この内容で登録する">';
+    echo '<input id="get_time_btn" class="btn create_btn" type="submit" value="この内容で登録する">';
     echo '</div>';
 
 
