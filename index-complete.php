@@ -24,8 +24,8 @@ $name = $nickname = $post_code = $address = $mail = $password = '';
 if (isset($_SESSION['customer'])) {
   $id = $_SESSION['customer']['id'];
   $name = $_SESSION['customer']['name'];
-  $nickname = $_SESSION['customer']['nickname'];
   $mail = $_SESSION['customer']['mail'];
+  $nickname = $_SESSION['customer']['nickname'];
   $password = $_SESSION['customer']['password'];
 }
 // 現在の日時を取得

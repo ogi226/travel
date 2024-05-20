@@ -33,6 +33,7 @@
   $sql = $pdo->prepare('SELECT * FROM plan WHERE id=?');
   $sql->execute([$plan_id]);
   ?>
+<<<<<<< HEAD
   <?php
   echo '<div id="top">';
   echo '<div class="back"><a href="schedule.php?plan_id=', $plan_id, '">＜ 戻る</a></div>';
@@ -40,6 +41,13 @@
   echo '<h2 class="trip_title">新規登録</h2>';
   echo '</div>';
   ?>
+=======
+  <div id="top">
+    <div class="back"><a href="schedule.php">＜ 戻る</a></div>
+    <h1>スケジュール作成</h1>
+    <h2 class="trip_title">新規登録</h2>
+  </div>
+>>>>>>> 2970f899d23dd4694761512f557eaf0e3ab59e94
 
   <body class="appear">
     <?php require 'header.php';  ?>

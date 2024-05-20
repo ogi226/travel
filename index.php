@@ -36,7 +36,12 @@
   <!-- 幾何学 -->
   <div id="particles-js"></div>
   <!-- <div id="wrapper"> -->
+  <div class="wrap">
+    <header id="header" class="fadeDownTrigger fadeDown">
+      <h1 class="smoothTrigger smooth"><a href="#">travel planner</a></h1>
+    </header>
 
+<<<<<<< HEAD
   <div class="wrap">
     <header id="header" class="fadeDownTrigger fadeDown">
       <h1 class="smoothTrigger smooth"><a href="index.php"><img class="" src="image/logo_2.png" alt=""></a></h1>
@@ -62,6 +67,28 @@
         </a>
       </div>
 
+=======
+    <main>
+      <div id="menu">
+        <a href="">
+          <img src="image/icon/bookmark.svg" alt="">
+          <span>プラン一覧</span>
+        </a>
+        <a href="checklist.php">
+          <img src="image/icon/checkbox.svg" alt="">
+          <span>チェックリスト</span>
+        </a>
+        <a href="checklist.php">
+          <img src="image/icon/diary.svg" alt="">
+          <span>日記</span>
+        </a>
+        <a href="customer-input.php">
+          <img src="image/icon/mypage.svg" alt="">
+          <span>マイページ</span>
+        </a>
+      </div>
+
+>>>>>>> 2970f899d23dd4694761512f557eaf0e3ab59e94
       <?php
       // セッションを変数に定義
       if (isset($_SESSION['customer'])) {
@@ -93,6 +120,7 @@
         echo '</div> -->';
         echo '<div class="topics-area">';
 
+<<<<<<< HEAD
         $sql = $pdo->prepare('SELECT * FROM plan WHERE customer_id=? and deleted_at IS NULL ORDER BY departure_date ASC');
         $sql->execute([$_SESSION['customer']['id']]);
         $id_list[] = $sql->fetchAll();
@@ -142,6 +170,35 @@
             echo '</div>';
             echo '</article>';
           }
+=======
+        $sql = $pdo->prepare('SELECT * FROM plan WHERE customer_id=? ORDER BY departure_date ASC');
+        $sql->execute([$_SESSION['customer']['id']]);
+        // しおりがないとき
+        echo '<div class="topics-area">予定を立てよう</div>';
+        echo '<div class="topics-area">新規作成<span><a href="index-create.php">コチラ</a></span></div>';
+        foreach ($sql as $row) {
+          $plan_id = $row['id'];
+          $title = $row['title'];
+          $departure_date = $row['departure_date'];
+          $arrival_date = $row['arrival_date'];
+          $plan_image = $row['plan_image'];
+          $week1 = date('w', strtotime($departure_date));
+          $week2 = date('w', strtotime($arrival_date));
+          // ０～６に対応した曜日の配列を用意
+          $week = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"];
+          // 曜日の数字に対応した配列を取得(出発日)
+          $weekDep = $week[$week1];
+          // 曜日の数字に対応した配列を取得(出発日)
+          $weekArr = $week[$week2];
+
+          echo ' <article class="smoothTrigger"><a href="#">';
+          echo ' <figure class="zoomOut"><a href="schedule.php?plan_id=', $plan_id, '"><span class="mask"><img src="', $plan_image, '" alt=""></span></a></figure>';
+          echo '<div class="topics-block">';
+          echo '<h3 class="trip_title">', $title, '</h3>';
+          echo '<p class="schedule_date">', date('Y年m月d日', strtotime($departure_date)), $weekDep, '～', date('Y年m月d日', strtotime($arrival_date)), $weekArr, '</p>';
+          echo '</div>';
+          echo '</a></article>';
+>>>>>>> 2970f899d23dd4694761512f557eaf0e3ab59e94
         }
 
         echo '</div>';
@@ -198,7 +255,11 @@ END;
 
       <footer id="footer">
         <!-- <div id="page-top"><a href="#header"></a></div> -->
+<<<<<<< HEAD
         <small class="textalign_center">&copy; Good Trip</small>
+=======
+        <small>&copy; Good Trip</small>
+>>>>>>> 2970f899d23dd4694761512f557eaf0e3ab59e94
       </footer>
   </div><!-- </.wrap> -->
   <!-- <canvas id="waveCanvas"></canvas> -->

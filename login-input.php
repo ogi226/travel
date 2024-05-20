@@ -14,8 +14,7 @@
   <link rel="stylesheet" type="text/css" href="css/reset.css">
   <link rel="stylesheet" type="text/css" href="css/parts.css">
   <link rel="stylesheet" type="text/css" href="css/loginout.css">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
-  <link rel="stylesheet" href="css/login.css">
+  <!-- <link rel="stylesheet" type="text/css" href="css/index.css"> -->
   <title>ログイン | 旅のしおり</title>
 </head>
 
@@ -59,23 +58,30 @@
     echo '</div>';
     echo '</div><!-- /content -->';
   } else {
-    echo '<div class="content">';
-    echo '<div class="content_inner">';
-    echo '<form class="textalign_center" action="login-complete.php " method="post">';
-    echo '<input class="input_field" input type="mail" name="mail" placeholder="Email"><br>';
-    echo '<input class="input_field" input type="password" name="password" placeholder="Password"><br>';
-    echo '<div class="textalign_center">';
-    echo '<input class="login_btn" type="submit" value="Log in">';
-    echo '</div>';
-    echo '</form>';
-    echo '</div><!-- /content_inner -->';
-    echo '<div class="textalign_center">';
-    echo '<a href="customer-input.php">';
-    echo '<p class="flameout_memo">会員登録がお済みでない方は<a href="customer-input.php">こちら</a></p>';
-    echo '</a>';
-    echo '</div>';
-    echo '</div><!-- /content -->';
+    echo <<<END
+<form class="" action="login-complete.php " method="post">
+<div class="grid_content">
+<div class="item">
+<h2>Email</h2>
+<input type="mail" id="inputField" class="input_field"  name="mail" value="" pattern="[^\s]+" title="空白以外の文字を入力してください" placeholder="Email" required>
+</div>
+
+<div class="item">
+<h2>Password</h2>
+<input type="password" id="inputField" class="input_field"  name="password" value="" pattern="[^\s]+" title="空白以外の文字を入力してください" placeholder="Password" required>
+</div>
+
+<div class="textalign_center">
+<input class="btn login_btn" type="submit" value="Log in">
+</div>
+</form>
+END;
   }
+  echo '<div class="textalign_center">';
+  echo '<a href="customer-input.php">';
+  echo '<p class="flameout_memo">会員登録がお済みでない方は<a href="customer-input.php">こちら</a></p>';
+  echo '</a>';
+  echo '</div>';
   ?>
 
 </main>

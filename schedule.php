@@ -35,6 +35,11 @@
 
     // 日数を計算
     $days = (($arrival_date - $departure_date) / 86400) + 1;
+<<<<<<< HEAD
+=======
+    echo $days . '日'; // 1日
+    echo date('Y-m-d', $departure_date);
+>>>>>>> 2970f899d23dd4694761512f557eaf0e3ab59e94
   }
   ?>
 
@@ -47,12 +52,30 @@
   echo '<p class="schedule_date">', date('Y年m月d日', $departure_date), $weekDep, '～', date('Y年m月d日', $arrival_date), $weekArr, '</p>';
   echo '</div>';
 
+<<<<<<< HEAD
+=======
+  // for ($i = 1; $i <= $days; $i++) {
+  //   echo '<h3>', $i, '日目&emsp;', date('Y年m月d日', $departure_date), $weekDep, '</h3>';
+  //   echo '<div class="plan">';
+  //   echo '<div class="container">';
+>>>>>>> 2970f899d23dd4694761512f557eaf0e3ab59e94
   // ②計画の情報を取得
   // URL情報を取得する
   if (isset($_GET['plan_id'])) {
     $plan_id = $_GET['plan_id'];
   }
 
+<<<<<<< HEAD
+=======
+  // $schedule = $pdo->prepare('SELECT * FROM schedule WHERE plan_id=? and schedule_date=?');
+  // $schedule->execute([$plan_id, date('Y-m-d', $departure_date)]);
+  // foreach ($schedule as $row) {
+  //   $start_time = $row['$start_time'];
+  //   $end_time = $row['$end_time'];
+  //   echo $start_time;
+  //   echo $end_time;
+
+>>>>>>> 2970f899d23dd4694761512f557eaf0e3ab59e94
   // クエリの実行
   $schedule = $pdo->prepare('SELECT * FROM schedule WHERE plan_id=? and schedule_date=?');
   $schedule->execute([$plan_id, date('Y-m-d', $departure_date)]);
@@ -65,6 +88,7 @@
   $rows = $schedule->fetchAll();
   if (empty($rows)) {
     error_log("No rows found for query: $queryLog");
+<<<<<<< HEAD
     echo '新規登録してください';
   } else {
     error_log("Rows found for query: $queryLog");
@@ -104,6 +128,50 @@
 
   </div>
 
+=======
+  } else {
+    error_log("Rows found for query: $queryLog");
+    error_log(print_r($rows, true)); // 結果をログに出力
+  }
+  // }
+  // echo '<p class="item', $i, '"><span class="start">', $start_time, '</span><br>&nbsp;<span class="end">ー', $end_time, '</span></p>';
+  echo '<div class="icon">';
+  echo '<img class="item02" src="image/icon/電車、駅のフリーアイコン.svg" alt="">
+  </div>';
+  echo '<p class="item03">横浜駅→羽田空港国際ターミナル</p>';
+  echo '</div>';
+
+  echo '<hr>';
+
+  $departure_date = strtotime("+1 day", $departure_date);
+  // }
+  ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container">
+    <p class="item01"><span class="start">10:15</span><br>&nbsp;<span class="end">ー10:30</span></p>
+    <div class="icon">
+      <img class="item02" src="image/icon/星アイコン8.svg" alt="">
+    </div>
+    <p class="item03">SIMカード受け取り</p>
+  </div>
+
+  <hr>
+
+>>>>>>> 2970f899d23dd4694761512f557eaf0e3ab59e94
   <div class="container">
     <p class="item01"><span class="start">12:05</span><br>&nbsp;<span class="end">ー14:25</span></p>
     <div class="icon">
